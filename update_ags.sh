@@ -22,26 +22,35 @@ temp_directory="ags_temp_clone"
 # Set the desired destination directory
 desired_destination="$HOME/.config/ags"
 
-# Step 0: Create the destination directory if it doesn't exist
-echo -e "${BG_BLUE}${YELLOW}Step 0: Creating destination directory...${NC}"
-mkdir -p "$desired_destination"
+# Add "ags --quit" at the start
+echo -e "${BG_BLUE}${YELLOW}Step 0: Closing ags...${NC}"
+ags --quit
 echo -e "${BG_BLUE}${GREEN}Step 0: Done${NC}"
 
-# Step 1: Clone the repository into a temporary directory
-echo -e "${BG_BLUE}${YELLOW}Step 1: Cloning the repository into a temporary directory...${NC}"
-git clone "$repository_url" "$temp_directory"
+# Step 1: Create the destination directory if it doesn't exist
+echo -e "${BG_BLUE}${YELLOW}Step 1: Creating destination directory...${NC}"
+mkdir -p "$desired_destination"
 echo -e "${BG_BLUE}${GREEN}Step 1: Done${NC}"
 
-# Step 2: Copy or move the contents of the temporary directory to the desired destination
-echo -e "${BG_BLUE}${YELLOW}Step 2: Copying files to the desired destination...${NC}"
-cp -rf "$temp_directory"/* "$desired_destination"/
+# Step 2: Clone the repository into a temporary directory
+echo -e "${BG_BLUE}${YELLOW}Step 2: Cloning the repository into a temporary directory...${NC}"
+git clone "$repository_url" "$temp_directory"
 echo -e "${BG_BLUE}${GREEN}Step 2: Done${NC}"
 
-# Remove the temporary directory
-rm -rf "$temp_directory"
-echo -e "${BG_BLUE}${GREEN}Temporary directory removed.${NC}"
+# Step 3: Copy or move the contents of the temporary directory to the desired destination
+echo -e "${BG_BLUE}${YELLOW}Step 3: Copying files to the desired destination...${NC}"
+cp -rf "$temp_directory"/* "$desired_destination"/
+echo -e "${BG_BLUE}${GREEN}Step 3: Done${NC}"
 
-echo -e "${BG_BLUE}${GREEN}"
+# Step 4: Clean up temporary directory
+echo -e "${BG_BLUE}${YELLOW}Step 4: Cleaning up...${NC}"
+rm -rf "$temp_directory"
+echo -e "${BG_BLUE}${GREEN}Step 4: Done${NC}"
+
+# Add "ags" at the end
+echo -e "${BG_BLUE}${YELLOW}Step 5: Staring ags...${NC}"
+ags
+echo -e "${BG_BLUE}${GREEN}Step 5: Done${NC}"
 echo "*************************************************"
 echo "*                  Done                         *"
 echo "*************************************************"
